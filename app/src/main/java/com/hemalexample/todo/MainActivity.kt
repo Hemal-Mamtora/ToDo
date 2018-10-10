@@ -1,5 +1,6 @@
 package com.hemalexample.todo
 
+import android.content.Intent
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Button
@@ -14,6 +15,7 @@ class MainActivity : AppCompatActivity() {
     lateinit var etNewItem : EditText
     lateinit var btnAddItem : Button
     lateinit var lvItems : ListView
+    lateinit var btnViewCalendar : Button
 
     lateinit var ref : DatabaseReference
     lateinit var taskList : MutableList<Task>
@@ -28,9 +30,15 @@ class MainActivity : AppCompatActivity() {
         etNewItem = findViewById(R.id.etNewItem)
         btnAddItem = findViewById(R.id.btnAddItem)
         lvItems = findViewById(R.id.lvItems)
+        btnViewCalendar = findViewById(R.id.btnViewCalendar)
 
         btnAddItem.setOnClickListener {
             saveItem()
+        }
+
+        btnViewCalendar.setOnClickListener {
+            val intent = Intent(this@MainActivity, Calendar::class.java)
+            startActivity(intent)
         }
 
         ref.addValueEventListener(object: ValueEventListener {
