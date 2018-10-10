@@ -26,6 +26,8 @@ class TaskAdapter(val mctx: Context, val layoutResId : Int, val taskList : List<
         tvTask.setOnClickListener {
             showUpdateDialog(task)
         }
+
+
         return view;
     }
 
@@ -55,8 +57,10 @@ class TaskAdapter(val mctx: Context, val layoutResId : Int, val taskList : List<
             Toast.makeText(mctx, "Task Updated", Toast.LENGTH_LONG).show()
         }
 
-        builder.setNegativeButton("No") { p0, p1 ->
-
+        builder.setNegativeButton("Delete") { p0, p1 ->
+            val dbTask = FirebaseDatabase.getInstance().getReference("tasks")
+            dbTask.child(task.id).removeValue()
+            Toast.makeText(mctx, "Task Deleted", Toast.LENGTH_LONG).show()
         }
 
         val alert = builder.create()
