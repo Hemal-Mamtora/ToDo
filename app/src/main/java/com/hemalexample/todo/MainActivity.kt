@@ -47,7 +47,7 @@ class MainActivity : AppCompatActivity() {
                     }
                 }
 
-                val adapter = TaskAdapter(applicationContext, R.layout.tasks, taskList)
+                val adapter = TaskAdapter(this@MainActivity, R.layout.tasks, taskList)
                 lvItems.adapter = adapter
             }
 

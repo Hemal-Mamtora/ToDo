@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.constraint.ConstraintLayout
+    android:padding="20dp"
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -9,9 +10,9 @@
     <TextView
         android:id="@+id/tvTask"
         android:layout_width="match_parent"
-        android:layout_height="26dp"
+        android:layout_height="wrap_content"
         android:text="TextView"
-        android:textAppearance="@style/Base.TextAppearance.AppCompat.Large"
+        android:textSize="28dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         tools:layout_editor_absoluteY="16dp" />
