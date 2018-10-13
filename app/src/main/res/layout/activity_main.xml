@@ -44,6 +44,6 @@
         android:layout_alignParentBottom="true"
         android:layout_marginEnd="149dp"
         android:layout_marginBottom="60dp"
-        android:text="Button" />
+        android:text="View Calendar" />
 
 </RelativeLayout>

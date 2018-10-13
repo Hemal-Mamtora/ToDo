@@ -5,11 +5,11 @@ import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ArrayAdapter
-import android.widget.EditText
-import android.widget.TextView
-import android.widget.Toast
+import android.widget.*
 import com.google.firebase.database.FirebaseDatabase
+import java.text.DateFormat
+import java.text.SimpleDateFormat
+import java.util.*
 
 
 class TaskAdapter(val mctx: Context, val layoutResId : Int, val taskList : List<Task>)
@@ -39,20 +39,46 @@ class TaskAdapter(val mctx: Context, val layoutResId : Int, val taskList : List<
 
         val et = view.findViewById<EditText>(R.id.etNewItem)
         et.setText(task.task)
+
+        val etDetails = view.findViewById<EditText>(R.id.etDetails)
+        etDetails.setText(task.detail)
+
+
+        val etDate = view.findViewById<EditText>(R.id.etDate)
+        val myDate = Date(task.date.time)
+        etDate.setText(myDate.toString())
+
+        val etPriority = view.findViewById<EditText>(R.id.etPriority)
+        etPriority.setText(task.priority.toString())
+
+        val cbDone = view.findViewById<CheckBox>(R.id.cbDone)
+        cbDone.isChecked = task.done
+
         //add other fields to modify
 
         builder.setView(view)
 
         builder.setPositiveButton("Update") { p0, p1 ->
             val dbTask = FirebaseDatabase.getInstance().getReference("tasks")
-            val t = et.text.toString().trim()
-            if(t.isEmpty()){
+            val myTask = et.text.toString().trim()
+            val myDetail = etDetails.text.toString().trim()
+            val myDone = cbDone.isChecked
+            val myDate = etDate.text.toString().trim()
+            val myPriority = etPriority.text.toString().trim().toInt()
+
+            if(myTask.isEmpty()){
                 et.error = "Please enter a task"
                 et.requestFocus()
                 return@setPositiveButton
             }
 
-            val newtask = Task(task.id, t, task.detail, task.done, task.date, task.priority)
+            if(myDetail.isEmpty()){
+                etDetails.error = "Please enter a task"
+                etDetails.requestFocus()
+                return@setPositiveButton
+            }
+
+            val newtask = Task(task.id, myTask, myDetail, myDone, task.date, myPriority)
             dbTask.child(task.id).setValue(newtask)
             Toast.makeText(mctx, "Task Updated", Toast.LENGTH_LONG).show()
         }
